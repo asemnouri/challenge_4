@@ -7,28 +7,35 @@ class App extends React.Component {
         super()
         this.state = {
             color: "red",
-            result: {}
+            player: "player red time"
         }
     }
     clickMe(id) {
-
-        for (let i = id; i <= 42; i+=7) {
+        (this.state.player==="player red time")?
+        this.setState({player:"player blue time"})
+        :
+        this.setState({player:"player red time"})
+        let m = 0
+        for (let i = id; i <= 42; i += 7) {
+            m = i
             console.log(i)
-            if (i + 7 <= 42) {
-                let element = document.getElementById(`${i + 7}`)
-                if (!element.classList.contains("w3-red") && !element.classList.contains("w3-blue")) {
-                    this.clickMe(i)
-                    break;
+            let z = i + 7
+            if (z <= 42) {
+                let element = document.getElementById(`${z}`)
+                if (element.classList.contains("w3-red") || element.classList.contains("w3-blue")) {
 
+                    this.colorMe(i)
+                    return;
                 }
             }
 
         }
 
+        this.colorMe(m)
     }
 
     colorMe(i) {
-        console.log(i)
+
         let element = document.getElementById(`${i}`)
         if (!element.classList.contains("w3-red") && !element.classList.contains("w3-blue")) {
             if (this.state.color === "red") {
@@ -43,6 +50,7 @@ class App extends React.Component {
     render() {
         return (
             <div className="container b-1">
+                <h3>{this.state.player}</h3>
                 <div className="row">
                     <button className="col-sm w3-circle p-4 m-2" id="1" onClick={() => this.clickMe(1)} ></button>
                     <button className="col-sm w3-circle p-4 m-2" id="2" onClick={() => this.clickMe(2)}></button>
